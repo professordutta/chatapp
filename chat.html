@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+</head>
+<body>
+    <input type="text" placeholder="Enter Message" id="mess" required>
+    <button type="submit" onclick="sendinfo()">Send Message</button><br>
+    <h1></h1>
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+    <script>
+        var socket = io('http://localhost:3000');
+        function sendinfo(){
+            message = document.getElementById('mess');
+            console.log(message.value);
+            socket.emit('chatinfo', message.value);
+            message.value = '';
+        }
+        socket.on('chatinfo',(data)=>{
+            document.querySelector('h1').innerHTML=data;
+        });
+    </script>
+</body>
+</html>
